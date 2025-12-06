@@ -91,12 +91,12 @@ function App() {
                 <div className="absolute inset-0 bg-gradient-to-r from-gray-700 via-gray-500 to-gray-700 rounded-full blur-xl opacity-30 animate-pulse group-hover:opacity-50 transition-opacity duration-500"></div>
                 <div className="relative w-40 h-40 rounded-full border-4 border-gray-800 shadow-2xl overflow-hidden">
                   <img
-                    src="/profile.jpg"
+                    src="./profile.jpg"
                     alt="Profile 1"
                     className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-100 group-hover:opacity-0"
                   />
                   <img
-                    src="/profile2.jpg"
+                    src="./profile2.jpg"
                     alt="Profile 2"
                     className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100"
                   />
@@ -167,8 +167,8 @@ function App() {
                   name="Muhamad Aryakusuma"
                   title="Back-End Developer"
                   handle="aryakusuma"
-                  avatarUrl="/profile.jpg"
-                  miniAvatarUrl="/profile2.jpg"
+                  avatarUrl="./profile.jpg"
+                  miniAvatarUrl="./profile2.jpg"
                   status="Open to Work"
                   contactText="Hire Me"
                   onContactClick={() => window.location.href = '#contact'}

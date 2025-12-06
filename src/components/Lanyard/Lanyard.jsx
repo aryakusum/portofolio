@@ -10,8 +10,8 @@ import './Lanyard.css';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
-const cardGLB = "/assets/card.glb";
-const lanyard = "/assets/lanyard.png";
+const cardGLB = "./assets/card.glb";
+const lanyard = "./assets/lanyard.png";
 
 export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], fov = 20, transparent = true }) {
   return (
@@ -44,7 +44,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }) {
   const texture = useTexture(lanyard);
 
   // Load kedua foto profil
-  const [profile1, profile2] = useTexture(['/profile.jpg', '/profile2.jpg']);
+  const [profile1, profile2] = useTexture(['./profile.jpg', './profile2.jpg']);
   const [combinedTexture, setCombinedTexture] = useState(null);
 
   useEffect(() => {
