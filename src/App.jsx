@@ -184,6 +184,42 @@ function App() {
                 </div>
               </div>
             </div>
+
+            {/* Education Section - Telkom University */}
+            <div className="mt-12 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+              <div className="group relative">
+                <div className="absolute inset-0 bg-red-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative bg-[#0a0a0a] border border-white/10 p-8 rounded-3xl flex flex-col md:flex-row items-center gap-6 text-center md:text-left hover:border-red-500/30 transition-colors">
+
+                  {/* Icon */}
+                  <div className="w-20 h-20 bg-red-900/20 rounded-2xl flex items-center justify-center shrink-0 border border-red-500/20 group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                    </svg>
+                  </div>
+
+                  {/* Text Info */}
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">Telkom University</h3>
+                    <p className="text-lg text-gray-300 font-medium">D3 Sistem Informasi Akuntansi</p>
+                    <p className="text-gray-500 mt-2 text-sm leading-relaxed">
+                      Currently focusing on financial information systems, database management, and enterprise resource planning.
+                    </p>
+                  </div>
+
+                  {/* Status Badge */}
+                  <div className="flex flex-col items-center md:items-end gap-3 min-w-[120px]">
+                    <span className="px-4 py-1.5 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-sm font-semibold shadow-sm shadow-red-900/20">
+                      Semester 5
+                    </span>
+                    <span className="text-xs text-gray-500 font-mono">Active Student</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
