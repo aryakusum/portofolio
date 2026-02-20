@@ -1,31 +1,144 @@
 @import "tailwindcss";
 
+/* 8-Bit Font Utility for Tailwind v4 */
+@utility font-pixel {
+  font-family: 'Press Start 2P', cursive;
+  line-height: 1.5;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     background-color: #050505;
     color: #e5e5e5;
     font-family: "Poppins", sans-serif;
+    image-rendering: pixelated;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  /* Custom Scrollbar - Professional */
-  ::-webkit-scrollbar {
-    width: 10px;
+  /* Hide scrollbar on mobile for cleaner look */
+  @media (max-width: 768px) {
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
   }
 
-  ::-webkit-scrollbar-track {
-    background: #0a0a0a;
+  /* 8-Bit Custom Scrollbar (Desktop) */
+  @media (min-width: 769px) {
+    ::-webkit-scrollbar {
+      width: 14px;
+      border: 3px solid #000;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #ffffff;
+      border: 3px solid #000;
+      box-shadow: inset -4px -4px 0px #888;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #cccccc;
+    }
   }
 
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #333333 0%, #000000 100%);
-    border-radius: 5px;
+  /* Retro CRT/Scanline Effect - Only on desktop */
+  .crt-overlay::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 9999;
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.15;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+  @media (max-width: 768px) {
+    .crt-overlay::before {
+      opacity: 0.05;
+    }
+  }
+}
+
+@layer components {
+  .pixel-border {
+    border: 4px solid white;
+    box-shadow: 
+      0 4px 0 -2px black,
+      0 -4px 0 -2px black,
+      4px 0 0 -2px black,
+      -4px 0 0 -2px black,
+      0 0 0 2px black;
+    image-rendering: pixelated;
+  }
+
+  @media (max-width: 768px) {
+    .pixel-border {
+      border-width: 3px;
+      box-shadow: 
+        0 3px 0 -1px black,
+        0 -3px 0 -1px black,
+        3px 0 0 -1px black,
+        -3px 0 0 -1px black,
+        0 0 0 1px black;
+    }
+  }
+
+  /* Specific pixel corners for extra retro feel */
+  .pixel-corners {
+    clip-path: polygon(
+      0 4px, 4px 4px, 4px 0,
+      calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+      100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+      4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+    );
+  }
+
+  .pixel-button {
+    @apply relative inline-block px-6 py-3 text-xs transition-transform active:translate-y-1;
+    font-family: 'Press Start 2P', cursive;
+    background: white;
+    color: black;
+    box-shadow: 
+      inset -4px -4px 0px #888,
+      4px 4px 0px black;
+  }
+
+  @media (max-width: 768px) {
+    .pixel-button {
+      @apply px-4 py-2 text-[10px];
+      box-shadow: 
+        inset -3px -3px 0px #888,
+        3px 3px 0px black;
+    }
+  }
+
+  .pixel-button:hover {
+    @apply scale-105;
+    background: #eee;
+  }
+
+  /* Parallax Layer Utilities */
+  .parallax-layer-back { transform: translateZ(-10px) scale(2); }
+  .parallax-layer-mid { transform: translateZ(0); }
+  .parallax-layer-front { transform: translateZ(5px) scale(0.8); }
+
+  /* Secret Room Reveal */
+  .secret-room {
+    transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 }
