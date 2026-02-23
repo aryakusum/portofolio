@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { animate, stagger } from 'animejs';
+import EditorialGrid from './EditorialGrid';
 
 /* ─── Enhanced Project Showcase with Anime.js ─── */
 const ProjectShowcase = ({ project, index }) => {
@@ -50,13 +51,13 @@ const ProjectShowcase = ({ project, index }) => {
       transition={{ duration: 1 }}
       className="relative"
     >
-      <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 md:gap-0 items-center`}>
+      <EditorialGrid className="!px-0 mx-0 max-w-none items-center gap-y-12">
         {/* Image Side */}
         <motion.div
           initial={{ x: isEven ? -60 : 60, opacity: 0 }}
           animate={isInView ? { x: 0, opacity: 1 } : {}}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className={`w-full md:w-3/5 relative ${isEven ? 'md:pr-8' : 'md:pl-8'}`}
+          className={`col-span-4 md:col-span-7 relative ${isEven ? 'md:col-start-1 md:pr-8' : 'md:col-start-6 md:pl-8'}`}
         >
           <div className="relative overflow-hidden aspect-[16/10] group">
             <motion.img
@@ -88,12 +89,12 @@ const ProjectShowcase = ({ project, index }) => {
           initial={{ y: 40, opacity: 0 }}
           animate={isInView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className={`w-full md:w-2/5 flex flex-col justify-center ${isEven ? 'md:pl-8 lg:pl-16' : 'md:pr-8 lg:pr-16'}`}
+          className={`col-span-4 md:col-span-5 flex flex-col justify-center ${isEven ? 'md:col-start-8 md:pl-8 lg:pl-16' : 'md:col-start-1 md:row-start-1 md:pr-8 lg:pr-16'}`}
         >
           <span className="font-sans text-[9px] md:text-[10px] tracking-[0.3em] uppercase opacity-40 mb-3 md:mb-4 block">
             {project.subtitle}
           </span>
-          <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl tracking-tight leading-[0.95] mb-4 md:mb-6">
+          <h3 className="font-serif text-editorial-display tracking-tight leading-[0.95] mb-4 md:mb-6">
             {project.title}
           </h3>
           <p className="font-sans text-xs md:text-sm opacity-50 leading-relaxed mb-6 md:mb-8 max-w-sm">
@@ -122,7 +123,7 @@ const ProjectShowcase = ({ project, index }) => {
             <ArrowUpRight size={12} className="group-hover/link:rotate-45 transition-transform duration-300" />
           </motion.a>
         </motion.div>
-      </div>
+      </EditorialGrid>
     </motion.article>
   );
 };

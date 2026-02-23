@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@theme {
+  --text-editorial-hero: clamp(3rem, 8vw, 7rem);
+  --text-editorial-display: clamp(2rem, 5vw, 4rem);
+  --text-editorial-body: clamp(1rem, 1.5vw, 1.125rem);
+
+  --color-editorial-bg: #f4f4f0;
+  --color-editorial-text: #1a1a1a;
+
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
 /* 8-Bit Font Utility for Tailwind v4 */
 @utility font-pixel {
   font-family: 'Press Start 2P', cursive;

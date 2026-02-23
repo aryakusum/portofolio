@@ -1,27 +1,40 @@
-import { useRef } from 'react';
+import { useRef, useState, Suspense } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float } from '@react-three/drei';
+import * as THREE from 'three';
 
 /* ─── 3D Geometric Object ─── */
 const GeometricObject = ({ scrollProgress }) => {
   const meshRef = useRef();
   const wireRef = useRef();
 
-  useFrame(() => {
+  useFrame((state) => {
     if (meshRef.current && scrollProgress?.current !== undefined) {
       const progress = scrollProgress.current;
-      meshRef.current.rotation.y = progress * Math.PI * 4;
-      meshRef.current.rotation.x = Math.sin(progress * Math.PI * 2) * 0.5;
-      meshRef.current.rotation.z = Math.cos(progress * Math.PI) * 0.3;
+      
+      const targetY = progress * Math.PI * 4 + (state.pointer.x * 0.5);
+      const targetX = Math.sin(progress * Math.PI * 2) * 0.5 - (state.pointer.y * 0.5);
+      const targetZ = Math.cos(progress * Math.PI) * 0.3;
+
+      meshRef.current.rotation.y = THREE.MathUtils.lerp(meshRef.current.rotation.y, targetY, 0.1);
+      meshRef.current.rotation.x = THREE.MathUtils.lerp(meshRef.current.rotation.x, targetX, 0.1);
+      meshRef.current.rotation.z = THREE.MathUtils.lerp(meshRef.current.rotation.z, targetZ, 0.1);
       
       const s = 0.8 + Math.sin(progress * Math.PI) * 0.4;
       meshRef.current.scale.setScalar(s);
     }
     if (wireRef.current && scrollProgress?.current !== undefined) {
       const progress = scrollProgress.current;
-      wireRef.current.rotation.y = -progress * Math.PI * 3;
-      wireRef.current.rotation.x = Math.cos(progress * Math.PI * 2) * 0.4;
+      
+      const targetWireY = -progress * Math.PI * 3 + (state.pointer.x * 0.3);
+      const targetWireX = Math.cos(progress * Math.PI * 2) * 0.4 - (state.pointer.y * 0.3);
+      
+      wireRef.current.rotation.y = THREE.MathUtils.lerp(wireRef.current.rotation.y, targetWireY, 0.1);
+      wireRef.current.rotation.x = THREE.MathUtils.lerp(wireRef.current.rotation.x, targetWireX, 0.1);
+      
+      const breathingOpacity = 0.15 + Math.sin(state.clock.elapsedTime * 2) * 0.1;
+      wireRef.current.material.opacity = breathingOpacity;
     }
   });
 
@@ -32,8 +45,8 @@ const GeometricObject = ({ scrollProgress }) => {
           <dodecahedronGeometry args={[1.5, 0]} />
           <meshStandardMaterial
             color="#1a1a1a"
-            metalness={0.3}
-            roughness={0.4}
+            metalness={0.6}
+            roughness={0.2}
             flatShading
           />
         </mesh>
@@ -59,22 +72,38 @@ const GeometricObject = ({ scrollProgress }) => {
 /* ─── Orbiting Sphere ─── */
 const OrbitingSphere = ({ scrollProgress }) => {
   const ref = useRef();
+  const [hovered, setHovered] = useState(false);
 
-  useFrame(({ clock }) => {
+  useFrame((state) => {
     if (ref.current) {
-      const t = clock.getElapsedTime();
+      const t = state.clock.getElapsedTime();
       const progress = scrollProgress?.current || 0;
       const radius = 3;
       ref.current.position.x = Math.cos(t * 0.5 + progress * Math.PI * 4) * radius;
       ref.current.position.z = Math.sin(t * 0.5 + progress * Math.PI * 4) * radius;
       ref.current.position.y = Math.sin(t * 0.3) * 0.5;
+      
+      const targetScale = hovered ? 2.5 : 1;
+      ref.current.scale.x = THREE.MathUtils.lerp(ref.current.scale.x, targetScale, 0.15);
+      ref.current.scale.y = THREE.MathUtils.lerp(ref.current.scale.y, targetScale, 0.15);
+      ref.current.scale.z = THREE.MathUtils.lerp(ref.current.scale.z, targetScale, 0.15);
     }
   });
 
   return (
-    <mesh ref={ref}>
+    <mesh 
+      ref={ref}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+    >
       <sphereGeometry args={[0.12, 16, 16]} />
-      <meshStandardMaterial color="#000" metalness={0.8} roughness={0.2} />
+      <meshStandardMaterial 
+        color={hovered ? "#f4f4f0" : "#000"} 
+        metalness={0.8} 
+        roughness={0.2} 
+        emissive={hovered ? "#f4f4f0" : "#000"}
+        emissiveIntensity={hovered ? 0.2 : 0}
+      />
     </mesh>
   );
 };
@@ -110,18 +139,20 @@ const ImageSequence = () => {
 
         {/* 3D Canvas - Responsive camera */}
         <div className="absolute inset-0 z-10">
-          <Canvas
-            camera={{ position: [0, 0, 8], fov: 45 }}
-            gl={{ antialias: true, alpha: true }}
-            style={{ background: 'transparent' }}
-            dpr={[1, 2]}
-          >
-            <ambientLight intensity={0.6} />
-            <directionalLight position={[5, 5, 5]} intensity={1} />
-            <directionalLight position={[-3, -3, 2]} intensity={0.3} />
-            <pointLight position={[0, 3, 0]} intensity={0.5} color="#ffffff" />
-            <GeometricObject scrollProgress={smoothProgress} />
-          </Canvas>
+          <Suspense fallback={null}>
+            <Canvas
+              camera={{ position: [0, 0, 8], fov: 45 }}
+              gl={{ antialias: true, alpha: true }}
+              style={{ background: 'transparent' }}
+              dpr={[1, 2]}
+            >
+              <ambientLight intensity={0.6} />
+              <directionalLight position={[5, 5, 5]} intensity={1} />
+              <directionalLight position={[-3, -3, 2]} intensity={0.3} />
+              <pointLight position={[0, 3, 0]} intensity={0.5} color="#ffffff" />
+              <GeometricObject scrollProgress={smoothProgress} />
+            </Canvas>
+          </Suspense>
         </div>
 
         {/* Editorial Text Overlay - Responsive */}

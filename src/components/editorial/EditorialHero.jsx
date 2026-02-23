@@ -82,7 +82,7 @@ const EditorialHero = () => {
 
 
         {/* Content */}
-        <motion.div style={{ y, opacity, scale }} className="relative z-10 flex flex-col md:flex-row items-center justify-between w-full h-full px-6 md:px-16 lg:px-24">
+        <motion.div style={{ y, opacity, scale }} className="relative z-10 flex flex-col md:flex-row items-center justify-between w-full h-full px-4 md:px-8 max-w-[1600px] mx-auto">
           {/* Left side */}
           <div className="flex flex-col justify-center h-full pt-20 md:pt-0 md:w-1/2">
             <motion.div
@@ -103,7 +103,7 @@ const EditorialHero = () => {
 
             <h1
               ref={nameRef}
-              className="font-serif text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[8rem] xl:text-[10rem] tracking-[-0.04em] leading-[0.82] mb-6"
+              className="font-serif text-editorial-hero tracking-[-0.04em] leading-[0.82] mb-6"
             >
               <div className="overflow-hidden">
                 {renderLetters('Arya')}
@@ -156,7 +156,7 @@ const EditorialHero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-6 md:left-16 lg:left-24 flex items-center gap-4 cursor-pointer group z-20"
+          className="absolute bottom-8 left-4 md:left-8 flex items-center gap-4 cursor-pointer group z-20"
           onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
         >
           <motion.div

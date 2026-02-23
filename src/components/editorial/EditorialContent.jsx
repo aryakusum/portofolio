@@ -9,6 +9,9 @@ import BentoCard from './BentoCard';
 import ProjectShowcase from './ProjectShowcase';
 import StickyQuote from './StickyQuote';
 import HorizontalShowcase from './HorizontalShowcase';
+import EditorialGrid from './EditorialGrid';
+import CustomCursor from './CustomCursor';
+import MagneticButton from './MagneticButton';
 import { listTools, listProyek } from '../../data';
 import { ArrowUpRight } from 'lucide-react';
 import { animate, stagger } from 'animejs';
@@ -84,7 +87,8 @@ const EditorialContent = () => {
   }, []);
 
   return (
-    <div ref={mainRef} className="bg-[#f4f4f0] text-[#1a1a1a] min-h-screen selection:bg-black selection:text-white overflow-x-hidden">
+    <div ref={mainRef} className="bg-editorial-bg text-editorial-text min-h-screen selection:bg-black selection:text-white cursor-none overflow-x-hidden">
+      <CustomCursor />
       {/* Progress Bar */}
       <motion.div style={{ scaleX: progressWidth }}
         className="fixed top-0 left-0 right-0 h-[2px] bg-[#1a1a1a] z-[100] origin-left"
@@ -96,20 +100,20 @@ const EditorialContent = () => {
       <ScrollTicker text="About" speed={25} />
 
       {/* ═══ ABOUT ═══ */}
-      <section id="about" className="py-20 md:py-32 lg:py-48 px-6 md:px-12 lg:px-24 max-w-[1400px] mx-auto">
+      <section id="about" className="py-20 md:py-32 lg:py-48 px-6 md:px-12 lg:px-24 max-w-[1600px] mx-auto">
         <SectionMarker number="01" label="Profile" />
         
-        {/* Asymmetric Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
+        {/* Asymmetric Layout using EditorialGrid */}
+        <EditorialGrid className="!px-0 mx-0 max-w-none items-start">
           {/* Left Column - wider text */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="md:col-span-7"
+            className="col-span-4 md:col-span-7"
           >
-            <p ref={aboutTextRef} className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[2.8rem] leading-[1.25] mb-8 md:mb-12">
+            <p ref={aboutTextRef} className="font-serif text-editorial-display leading-[1.25] mb-8 md:mb-12">
               {'I craft digital experiences with a focus on robust backend architecture. Combining the precision of Laravel with the intelligence of Python.'.split(' ').map((word, i) => (
                 <span key={i} className="word inline-block mr-[0.3em]" style={{ opacity: 0 }}>
                   {word.includes('robust') || word.includes('backend') || word.includes('architecture.') ? (
@@ -145,7 +149,7 @@ const EditorialContent = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="md:col-span-5 relative"
+            className="col-span-4 md:col-span-5 relative"
           >
             <div className="relative">
               <div className="aspect-[3/4] overflow-hidden max-w-sm mx-auto md:max-w-none">
@@ -165,7 +169,7 @@ const EditorialContent = () => {
               </motion.div>
             </div>
           </motion.div>
-        </div>
+        </EditorialGrid>
       </section>
 
       <StickyQuote />
@@ -226,25 +230,27 @@ const EditorialContent = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-4xl sm:text-5xl md:text-7xl leading-[0.95] mb-8"
+                className="font-serif text-editorial-hero leading-[0.95] mb-8"
               >
                 Let's build<br />
                 <span className="italic text-[#f4f4f0]/50">something</span><br />
                 iconic.
               </motion.h2>
-              <motion.a
-                href="mailto:aryasatriawinata@gmail.com"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                whileHover={{ scale: 1.03, backgroundColor: "#f4f4f0", color: "#1a1a1a" }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-3 border border-[#f4f4f0]/20 px-6 py-3 md:px-8 md:py-4 rounded-full font-sans text-xs md:text-sm transition-all duration-500"
-              >
-                Start a Collaboration
-                <ArrowUpRight size={14} />
-              </motion.a>
+              <MagneticButton>
+                <motion.a
+                  href="mailto:aryasatriawinata@gmail.com"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  whileHover={{ scale: 1.03, backgroundColor: "#f4f4f0", color: "#1a1a1a" }}
+                  whileTap={{ scale: 0.97 }}
+                  className="interactive inline-flex items-center gap-3 border border-[#f4f4f0]/20 px-6 py-3 md:px-8 md:py-4 rounded-full font-sans text-xs md:text-sm transition-all duration-500"
+                >
+                  Start a Collaboration
+                  <ArrowUpRight size={14} />
+                </motion.a>
+              </MagneticButton>
             </div>
 
             {/* Right - Info */}

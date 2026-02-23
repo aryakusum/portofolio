@@ -23,9 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# GSD / Gemini Internal
+# GSD and Agent toolings
+.planning/
 .gsd/
 .gemini/
-build_err.log
-anime_exports.txt
-
