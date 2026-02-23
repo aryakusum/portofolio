@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# GSD / Gemini Internal
+.gsd/
+.gemini/
+build_err.log
+anime_exports.txt
+
