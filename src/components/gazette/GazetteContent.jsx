@@ -148,7 +148,7 @@ export default function GazetteContent() {
               {/* Highlights & Vital Figures */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border-t-2 border-b-2 border-[#181512] py-3 text-center">
                 <div className="p-2 border sm:border-r sm:border-l-0 sm:border-y-0 border-[#181512]/30">
-                  <div className="text-2xl font-black text-[#181512]">4+</div>
+                  <div className="text-2xl font-black text-[#181512]">{listProyek.length}+</div>
                   <div className="text-[10px] uppercase font-bold text-[#666]">Production Enterprises</div>
                 </div>
                 <div className="p-2 border sm:border-r sm:border-l-0 sm:border-y-0 border-[#181512]/30">
@@ -243,11 +243,18 @@ export default function GazetteContent() {
               >
                 <div>
                   {/* Dispatch Header */}
-                  <div className="flex justify-between items-center text-[10px] font-black text-[#b91c1c] border-b border-[#181512]/30 pb-1.5 mb-3">
+                  <div className="flex flex-wrap justify-between items-center gap-1.5 text-[10px] font-black text-[#b91c1c] border-b border-[#181512]/30 pb-1.5 mb-3">
                     <span className="tracking-widest">DISPATCH NO. 0{idx + 1}</span>
-                    <span className="uppercase text-[#181512] bg-white px-2 py-0.5 border border-[#181512]">
-                      {p.subtitle}
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      {p.contributed && (
+                        <span className="uppercase text-white bg-[#b91c1c] px-2 py-0.5 text-[8px] font-black border border-[#181512] tracking-wider">
+                          ★ CONTRIBUTOR
+                        </span>
+                      )}
+                      <span className="uppercase text-[#181512] bg-white px-2 py-0.5 border border-[#181512]">
+                        {p.subtitle}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Project Image in Halftone Frame */}
